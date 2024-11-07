@@ -39,8 +39,10 @@ watch(checked, () => {
     height: 12px;
     background: var(--color-pure-white);
     border-radius: 50%;
+  }
 
-    @media screen and (min-width: 768px) {
+  @media screen and (min-width: 768px) {
+    input::before {
       width: 20px;
       height: 20px;
     }
