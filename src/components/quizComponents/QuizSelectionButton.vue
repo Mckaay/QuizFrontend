@@ -1,14 +1,17 @@
 <script setup>
 import {useThemeStore} from "@/stores/theme.js";
+import useGetDynamicImageUrl from "@/composables/getDynamicImageUrl.js";
 
 const { quiz } = defineProps(['quiz'])
 const themeStore = useThemeStore();
+
+const { path } = useGetDynamicImageUrl(quiz.icon);
 </script>
 
 <template>
   <RouterLink :to="`/quiz/${quiz.id}`">
     <div class="button-container" :class="{ dark: themeStore.isDark }">
-      <img :src="`/src${quiz.icon}`" alt="html-icon">
+      <img :src="path" alt="html-icon">
       <div class="quiz-title">{{ quiz.title }}</div>
     </div>
   </RouterLink>

@@ -1,13 +1,17 @@
 <script setup>
   import {useThemeStore} from "@/stores/theme.js";
+  import useGetDynamicImageUrl from "@/composables/getDynamicImageUrl.js";
 
   const { quizIcon, quizTitle } = defineProps(["quizIcon","quizTitle"]);
   const themeStore = useThemeStore();
+
+  const { path } = useGetDynamicImageUrl(quizIcon);
+  console.log(path);
 </script>
 
 <template>
   <div class="quiz-data-wrapper" :class="{ dark: themeStore.isDark }">
-    <div class="quiz-icon" :style="{ 'background': `url(../src${quizIcon})` }"></div>
+    <img :src="path" alt="quizIcon" class="quiz-icon">
     <div class="quiz-title">{{ quizTitle }}</div>
   </div>
 </template>
@@ -31,9 +35,6 @@
   .quiz-icon {
     display: inline-block;
     content: "";
-    background-size: 40px;
-    background-repeat: no-repeat !important;
-    background-position: center !important;
     min-width: 40px;
     min-height: 40px;
 
