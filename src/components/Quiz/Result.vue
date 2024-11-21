@@ -1,7 +1,7 @@
 <script setup>
   import Header from "@/components/Header.vue";
-  import PrimaryButton from "@/components/buttons/PrimaryButton.vue";
-  import QuizHeader from "@/components/quizComponents/QuizHeader.vue";
+  import PrimaryButton from "@/components/Button/PrimaryButton.vue";
+  import QuizHeader from "@/components/Quiz/QuizHeader.vue";
   import {useThemeStore} from "@/stores/theme.js";
 
   const themeStore = useThemeStore();

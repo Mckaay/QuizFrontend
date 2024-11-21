@@ -1,10 +1,10 @@
 <script setup>
-import RoundedCheckbox from "@/components/buttons/RoundedCheckbox.vue";
+import RoundedCheckbox from "@/components/Button/RoundedCheckbox.vue";
 import {useThemeStore} from "@/stores/theme.js";
 import {useQuizStore} from "@/stores/quiz.js";
 import {computed, watch} from "vue";
 import {useRouter} from "vue-router";
-import QuizHeader from "@/components/quizComponents/QuizHeader.vue";
+import QuizHeader from "@/components/Quiz/QuizHeader.vue";
 
 const themeStore = useThemeStore();
 const quizStore = useQuizStore();

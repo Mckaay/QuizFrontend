@@ -3,29 +3,25 @@ export default class Quiz {
         this.quizData = quizData;
         this.questionIndex = 0;
         this.score = 0;
-        this.questions = quizData.questions;
-        this.quizTitle = quizData.title;
-        this.quizIcon = quizData.icon;
+        this.questions = this.quizData.questions ?? [];
+        this.quizTitle = this.quizData.title ?? '';
+        this.quizIcon = this.quizData.icon ?? '';
     }
 
     get currentQuestion() {
-        return this.questions[this.questionIndex].question;
+        return this.questions[this.questionIndex]?.content;
     }
 
     get currentOptions() {
-        return this.questions[this.questionIndex].options;
+        return this.questions[this.questionIndex]?.answers;
     }
 
     get totalQuestions () {
-        return this.questions.length;
-    }
-
-    get correctAnswer () {
-        return this.questions[this.questionIndex].answer;
+        return this.questions.length ?? 0;
     }
 
     get correctAnswerIndex () {
-        return this.questions[this.questionIndex].options.findIndex((option) => option === this.correctAnswer);
+        return this.questions[this.questionIndex].answers.findIndex((answer) => answer.is_correct);
     }
 
     incrementScore () {
@@ -37,15 +33,15 @@ export default class Quiz {
     }
 
     checkAnswer (answer) {
-        return this.correctAnswer === answer;
+        return answer.is_correct;
     }
 
     checkAnswerByIndex (index) {
-        return this.correctAnswerIndex === parseInt(index);
+        return index == this.correctAnswerIndex;
     }
 
     checkIfQuizShouldEnd () {
-        return this.questionIndex >= this.totalQuestions;
+        return this.questionIndex >= this.totalQuestions ?? false;
     }
 
     checkIfLastQuestion () {
