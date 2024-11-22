@@ -1,6 +1,6 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
-import {getQuizData, getSingleQuizData, searchQuizzes} from "@/composables/api.js";
+import { useQuiz } from "@/composables/quizzes.js";
 
 export const useQuizStore = defineStore("quiz", () => {
   const arrayData = ref([]);
@@ -8,6 +8,8 @@ export const useQuizStore = defineStore("quiz", () => {
   const currentQuiz = ref([]);
   const currentQuizName = ref("");
   const currentQuizIcon = ref("");
+
+  const { getQuizData, getSingleQuizData, searchQuizzes } = useQuiz();
 
   function setCurrentQuizName(name) {
     currentQuizName.value = name;

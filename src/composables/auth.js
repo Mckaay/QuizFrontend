@@ -1,30 +1,38 @@
 import axios from "axios";
 
-export async function setXsrfToken() {
-  const xsrfToken = await axios.get("/sanctum/csrf-cookie");
-}
+export default function useAuth(loggedIn) {
+  const setXsrfToken = async () => {
+    await axios.get("/sanctum/csrf-cookie");
+  };
 
-export async function login(email, password) {
-  try {
-    await setXsrfToken();
-    const response = await axios.post("/login", {
-      email: email,
-      password: password,
-    });
-  } catch (e) {
-    if (!e.response.data.message) {
-      console.log(e.message);
-      return;
+  const login = async (email, password) => {
+    try {
+      await setXsrfToken();
+      await axios.post("/login", {
+        email: email,
+        password: password,
+      });
+
+      loggedIn.value = true;
+    } catch (e) {
+      if (!e.response?.data?.message) {
+        console.log(e.message);
+        return;
+      }
+
+      loggedIn.value = false;
+      console.log(e.response.data.message);
     }
+  };
 
-    console.log(e.response.data.message);
-  }
-}
+  const logout = async () => {
+    try {
+      await axios.post("/logout");
+      loggedIn.value = false;
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
-export async function logout() {
-  try {
-    await axios.post("/logout");
-  } catch (e) {
-    console.log(e);
-  }
+  return { setXsrfToken, login, logout };
 }

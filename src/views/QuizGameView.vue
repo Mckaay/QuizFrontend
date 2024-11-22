@@ -10,6 +10,8 @@ import ProgressBar from "@/components/Quiz/ProgressBar.vue";
 import ErrorMessage from "@/components/Form/ErrorMessage.vue";
 import Quiz from "@/services/quizService.js";
 import Result from "@/components/Quiz/Result.vue";
+import useQuizGame from "@/composables/quizGame.js";
+import { useQuiz } from "@/composables/quizzes.js";
 
 const route = useRoute();
 const quizStore = useQuizStore();

@@ -1,22 +1,6 @@
 <script setup>
 import Header from "@/components/Header.vue";
 import QuizSelectionList from "@/components/Quiz/QuizSelectionList.vue";
-import { useQuizStore } from "@/stores/quiz.js";
-import { computed, onMounted, ref, watch } from "vue";
-import { searchQuizzes } from "@/composables/api.js";
-
-const quizStore = useQuizStore();
-
-onMounted(async () => {
-  // console.log('Hi');
-  await quizStore.setQuizzesData();
-});
-
-const search = ref("");
-
-watch(search, async () => {
-  await quizStore.setQuizzesDataWithSearch(search.value);
-});
 </script>
 
 <template>
@@ -27,7 +11,6 @@ watch(search, async () => {
       italicText="Pick a subject to get started"
     />
     <main>
-      <input v-model="search" type="text" />
       <QuizSelectionList />
     </main>
   </div>

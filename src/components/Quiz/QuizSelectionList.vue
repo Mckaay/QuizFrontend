@@ -1,20 +1,25 @@
 <script setup>
 import QuizSelectionButton from "@/components/Quiz/QuizSelectionButton.vue";
-import { computed, onMounted } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 import { useQuizStore } from "@/stores/quiz.js";
+import { useQuiz } from "@/composables/quizzes.js";
 
-const quizStore = useQuizStore();
-const quizzes = computed(() => {
-  return quizStore.arrayData;
+const quizzes = ref([]);
+const quizApi = useQuiz();
+
+onMounted(async () => {
+  quizzes.value = await quizApi.getQuizData();
 });
 
-onMounted(() => {
-  quizStore.setQuizzesData();
+const search = ref("");
+watch(search, async () => {
+  quizzes.value = await quizApi.searchQuizzes(search.value);
 });
 </script>
 
 <template>
   <div class="flex-container">
+    <input v-model="search" type="text" />
     <QuizSelectionButton v-for="quiz in quizzes" :key="quiz.id" :quiz="quiz" />
   </div>
 </template>
