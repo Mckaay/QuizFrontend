@@ -1,33 +1,73 @@
 <script setup>
 import { ref } from "vue";
-import useAuth from "../composables/auth.js";
+import { useUserStore } from "@/stores/auth.js";
+import PrimaryButton from "@/components/Button/PrimaryButton.vue";
+import ErrorMessage from "@/components/Form/ErrorMessage.vue";
 
 const email = ref("");
 const password = ref("");
+
+const userStore = useUserStore();
 </script>
 
 <template>
   <div class="form-wrapper">
     <form
-      @submit.prevent="useAuth.login(email, password)"
-      action="http://localhost/login"
+      @submit.prevent="userStore.login(email, password)"
+      action="/login"
       method="POST"
     >
-      <input type="email" v-model="email" name="email" />
-      <input type="password" v-model="password" name="password" />
-      <button type="submit">Login</button>
+      <div class="input-wrapper">
+        <label for="email">Your email</label>
+        <input
+          type="email"
+          v-model="email"
+          name="email"
+          placeholder="email@example.com"
+        />
+      </div>
+      <div class="input-wrapper">
+        <label for="password">Your Password</label>
+        <input type="password" v-model="password" name="password" />
+      </div>
+      <PrimaryButton type="submit" text="Login" />
+      <ErrorMessage
+        v-if="userStore.errorMessage"
+        :message="userStore.errorMessage"
+      />
     </form>
-
-    <button
-      @click="useAuth.getSingleQuizData('01jd7b5gv7kf0tnr4nm5fdnzxc')"
-      type="button"
-    >
-      Fetch data
-    </button>
-    <button @click="useAuth.logout" type="button">Logout</button>
   </div>
-  <div>{{ email }}</div>
-  <div>{{ password }}</div>
 </template>
 
-<style lang="scss" scoped></style>
+<style>
+.form-wrapper {
+  height: 400px;
+  display: grid;
+  place-items: center;
+}
+
+form {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-150);
+
+  @media screen and (min-width: 768px) {
+    width: 60%;
+  }
+
+  @media screen and (min-width: 1100px) {
+    width: 40%;
+  }
+}
+
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-25);
+}
+
+input {
+  padding: var(--spacing-50);
+}
+</style>

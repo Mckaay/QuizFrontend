@@ -1,37 +1,22 @@
 import axios from "axios";
+import { useUserStore } from "@/stores/auth.js";
+import router from "@/router/index.js";
 
-export default function useAuth(loggedIn) {
+export default function useAuth() {
   const setXsrfToken = async () => {
     await axios.get("/sanctum/csrf-cookie");
   };
 
   const login = async (email, password) => {
-    try {
-      await setXsrfToken();
-      await axios.post("/login", {
-        email: email,
-        password: password,
-      });
-
-      loggedIn.value = true;
-    } catch (e) {
-      if (!e.response?.data?.message) {
-        console.log(e.message);
-        return;
-      }
-
-      loggedIn.value = false;
-      console.log(e.response.data.message);
-    }
+    await setXsrfToken();
+    await axios.post("/login", {
+      email: email,
+      password: password,
+    });
   };
 
   const logout = async () => {
-    try {
-      await axios.post("/logout");
-      loggedIn.value = false;
-    } catch (e) {
-      console.log(e);
-    }
+    await axios.post("/logout");
   };
 
   return { setXsrfToken, login, logout };
