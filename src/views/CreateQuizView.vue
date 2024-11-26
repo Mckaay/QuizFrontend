@@ -8,9 +8,7 @@ import AnswersFormPage from "@/components/Form/AnswersFormPage.vue";
 const quiz = ref({
   title: "",
   icon: "",
-  questions: [
-
-  ],
+  questions: [],
 });
 provide("quiz", quiz);
 
@@ -44,21 +42,19 @@ const validateFirstPage = () => {
 
 const validateSecondPage = () => {
   if (quiz.value.questions.length < 4) {
-    errors.value.push( {
+    errors.value.push({
       message: "Quiz must have at least 4 questions",
-    })
+    });
   }
 
   if (quiz.value.questions.length > 15) {
     errors.value.push({
       message: "Quiz can have maximum 15 questions",
-    })
+    });
   }
 };
 
-const validateAnswersToSingleQuestionPage = () => {
-
-}
+const validateAnswersToSingleQuestionPage = () => {};
 
 const goToNextPage = () => {
   errors.value = [];
@@ -72,7 +68,7 @@ const goToNextPage = () => {
   }
 
   if (currentPage.value > 2) {
-    validateAnswersToSingleQuestionPage()
+    validateAnswersToSingleQuestionPage();
   }
 
   if (errors.value.length !== 0) {
@@ -95,8 +91,8 @@ const submitForm = () => {
   <div class="form-wrapper">
     <form @submit.prevent="submitForm" method="POST" action="/api/v1/quizzes">
       <QuizFormPage v-if="currentPage === 1" />
-      <QuestionsFormPage v-else-if="currentPage === 2"/>
-      <AnswersFormPage :questionIndex="currentQuestionIndex" v-else/>
+      <QuestionsFormPage v-else-if="currentPage === 2" />
+      <AnswersFormPage :questionIndex="currentQuestionIndex" v-else />
     </form>
     <ErrorMessage
       v-if="errors"

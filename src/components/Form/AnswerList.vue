@@ -1,8 +1,8 @@
 <script setup>
-import {computed, inject} from "vue";
+import { computed, inject } from "vue";
 
 const quiz = inject("quiz");
-const { index } = defineProps(['index']);
+const { index } = defineProps(["index"]);
 
 const answers = computed(() => {
   if (quiz.value.questions[index].answers) {
@@ -10,7 +10,7 @@ const answers = computed(() => {
   } else {
     return null;
   }
-})
+});
 </script>
 
 <template>

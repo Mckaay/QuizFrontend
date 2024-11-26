@@ -1,6 +1,6 @@
 <script setup>
 import { useRoute } from "vue-router";
-import {computed, onBeforeMount, onMounted, provide, ref} from "vue";
+import { computed, onBeforeMount, onMounted, provide, ref } from "vue";
 import PrimaryButton from "@/components/Button/PrimaryButton.vue";
 import ItalicParagraph from "@/components/Text/ItalicParagraph.vue";
 import QuizQuestion from "@/components/Quiz/QuizQuestion.vue";
@@ -9,8 +9,8 @@ import ProgressBar from "@/components/Quiz/ProgressBar.vue";
 import ErrorMessage from "@/components/Form/ErrorMessage.vue";
 import Quiz from "@/services/quizService.js";
 import Result from "@/components/Quiz/Result.vue";
-import {useQuiz} from "@/composables/quizzes.js";
-import {useHeaderStore} from "@/stores/header.js";
+import { useQuiz } from "@/composables/quizzes.js";
+import { useHeaderStore } from "@/stores/header.js";
 
 const route = useRoute();
 const quiz = ref(new Quiz([]));

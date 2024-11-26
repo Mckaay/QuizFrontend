@@ -8,7 +8,7 @@ const errors = inject("errors");
 
 let index = 0;
 const question = ref({
-  content: '',
+  content: "",
 });
 
 const addQuestion = () => {
@@ -25,7 +25,7 @@ const addQuestion = () => {
     answers: [],
   });
 
-  question.value.content = '';
+  question.value.content = "";
   index++;
 };
 
@@ -34,33 +34,30 @@ const validateQuestion = () => {
 
   if (trimmedString.length < 8) {
     errors.value.push({
-      message: 'Question must have at least 8 characters.'
-    })
+      message: "Question must have at least 8 characters.",
+    });
   }
 
-  if (!trimmedString.endsWith('?')) {
+  if (!trimmedString.endsWith("?")) {
     errors.value.push({
-      message: 'Question must end with an question sign.'
-    })
+      message: "Question must end with an question sign.",
+    });
   }
 
   const unique = quiz.value.questions.some((element) => {
-    return (
-      element.content.trim().toLowerCase() ===
-      trimmedString.toLowerCase()
-    );
+    return element.content.trim().toLowerCase() === trimmedString.toLowerCase();
   });
 
   if (unique) {
     errors.value.push({
-      message: 'Question in a single quiz must be unique.'
-    })
+      message: "Question in a single quiz must be unique.",
+    });
   }
 };
 </script>
 
 <template>
-  <QuestionList :questions="quiz.questions"/>
+  <QuestionList :questions="quiz.questions" />
   <div class="question-input-wrapper">
     <label for="content">Question</label>
     <input type="text" name="content" v-model="question.content" />

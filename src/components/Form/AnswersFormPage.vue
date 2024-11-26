@@ -24,9 +24,9 @@ const addAnswer = () => {
     index: answerIndex.value,
     content: answer.value.content,
     isCorrect: false,
-  })
+  });
   answerIndex.value++;
-}
+};
 </script>
 
 <template>
@@ -38,10 +38,10 @@ const addAnswer = () => {
     <AnswerList :index="questionIndex" />
     <div class="input-answer-wrapper">
       <label for="answer">Answer</label>
-      <input type="text" name="answer" v-model="answer.content"/>
+      <input type="text" name="answer" v-model="answer.content" />
       <div class="checkbox-wrapper">
         <label for="isCorrect">Is Correct:</label>
-        <input type="checkbox" name="isCorrect" v-model="answer.isCorrect"/>
+        <input type="checkbox" name="isCorrect" v-model="answer.isCorrect" />
       </div>
       <button type="button" @click="addAnswer">Add answer</button>
     </div>
