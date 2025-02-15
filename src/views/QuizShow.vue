@@ -10,18 +10,13 @@ import ErrorMessage from "@/components/Form/ErrorMessage.vue";
 import Quiz from "@/services/quizService.js";
 import Result from "@/components/features/Quiz/Result.vue";
 import { useQuizApi } from "@/composables/quizApi.js";
-import { useHeaderStore } from "@/stores/header.js";
 
 const route = useRoute();
 const quiz = ref(new Quiz([]));
-const headerStore = useHeaderStore();
 const quizApi = useQuizApi();
 
 onBeforeMount(async () => {
   quiz.value = new Quiz(await quizApi.getQuiz(route.params.id));
-
-  headerStore.quizTitle = quiz.value.quizTitle;
-  headerStore.quizIcon = quiz.value.quizIcon;
 });
 
 const answeredState = ref(false);
