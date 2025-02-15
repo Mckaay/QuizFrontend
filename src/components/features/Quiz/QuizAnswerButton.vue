@@ -105,7 +105,7 @@ label:has(input:checked) {
 label.picked-correct-answer::after {
   display: block;
   content: "";
-  background: url(../../assets/images/icon-correct.svg);
+  background: url(../../../assets/images/icon-correct.svg);
   background-size: 40px;
   min-width: 40px;
   min-height: 40px;
@@ -116,7 +116,7 @@ label.picked-correct-answer::after {
 label.picked-incorrect-answer::after {
   display: block;
   content: "";
-  background: url(../../assets/images/icon-incorrect.svg);
+  background: url(../../../assets/images/icon-incorrect.svg);
   background-size: 40px;
   min-width: 40px;
   min-height: 40px;
@@ -136,7 +136,7 @@ label:has(input:checked).picked-incorrect-answer {
 label.correct-answer::after {
   display: block;
   content: "";
-  background: url(../../assets/images/icon-correct.svg);
+  background: url(../../../assets/images/icon-correct.svg);
   background-size: 40px;
   min-width: 40px;
   min-height: 40px;

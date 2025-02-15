@@ -1,7 +1,7 @@
 <script setup>
-  import Header from "@/components/Header.vue";
-  import PrimaryButton from "@/components/Button/PrimaryButton.vue";
-  import QuizHeader from "@/components/Quiz/QuizHeader.vue";
+  import BaseHeader from "@/components/shared/Text/BaseHeader.vue";
+  import PrimaryButton from "@/components/shared/Button/PrimaryButton.vue";
+  import QuizInfo from "@/components/features/Quiz/QuizInfo.vue";
   import {useThemeStore} from "@/stores/theme.js";
 
   const themeStore = useThemeStore();
@@ -11,9 +11,9 @@
 
 <template>
   <div class="wrapper">
-    <Header intro-text="Quiz completed" title="You scored..."/>
+    <BaseHeader intro-text="Quiz completed" title="You scored..."/>
     <div class="result-wrapper" :class="{ dark: themeStore.isDark }">
-      <QuizHeader :quizIcon="quizIcon" :quizTitle="quizTitle"/>
+      <QuizInfo :quizIcon="quizIcon" :quizTitle="quizTitle"/>
       <div class="score-wrapper">
         <div class="score">{{ score }}</div>
         <div class="max-score">out of {{ totalQuestions }}</div>

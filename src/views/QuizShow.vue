@@ -1,24 +1,24 @@
 <script setup>
 import { useRoute } from "vue-router";
 import { computed, onBeforeMount, onMounted, provide, ref } from "vue";
-import PrimaryButton from "@/components/Button/PrimaryButton.vue";
-import ItalicParagraph from "@/components/Text/ItalicParagraph.vue";
-import QuizQuestion from "@/components/Quiz/QuizQuestion.vue";
-import QuizAnswerButton from "@/components/Quiz/QuizAnswerButton.vue";
-import ProgressBar from "@/components/Quiz/ProgressBar.vue";
+import PrimaryButton from "@/components/shared/Button/PrimaryButton.vue";
+import ItalicParagraph from "@/components/shared/Text/ItalicParagraph.vue";
+import QuizQuestion from "@/components/features/Quiz/QuizQuestion.vue";
+import QuizAnswerButton from "@/components/features/Quiz/QuizAnswerButton.vue";
+import ProgressBar from "@/components/shared/ProgressBar.vue";
 import ErrorMessage from "@/components/Form/ErrorMessage.vue";
 import Quiz from "@/services/quizService.js";
-import Result from "@/components/Quiz/Result.vue";
-import { useQuiz } from "@/composables/quizzes.js";
+import Result from "@/components/features/Quiz/Result.vue";
+import { useQuizApi } from "@/composables/quizApi.js";
 import { useHeaderStore } from "@/stores/header.js";
 
 const route = useRoute();
 const quiz = ref(new Quiz([]));
 const headerStore = useHeaderStore();
-const quizApi = useQuiz();
+const quizApi = useQuizApi();
 
 onBeforeMount(async () => {
-  quiz.value = new Quiz(await quizApi.getSingleQuizData(route.params.id));
+  quiz.value = new Quiz(await quizApi.getQuiz(route.params.id));
 
   headerStore.quizTitle = quiz.value.quizTitle;
   headerStore.quizIcon = quiz.value.quizIcon;

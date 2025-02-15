@@ -17,13 +17,13 @@ const themeStore = useThemeStore();
   justify-content: center;
   align-items: center;
   gap: var(--spacing-50);
-  font-size: var(--font-size-110);
+  font-size: var(--font-size-100);
   color: var(--color-red);
   line-height: 1;
   text-align: center;
 
   @media screen and (min-width: 768px) {
-    font-size: var(--font-size-150);
+    font-size: var(--font-size-100);
   }
 }
 

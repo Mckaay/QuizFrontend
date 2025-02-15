@@ -1,17 +1,12 @@
 <script setup>
 import { useThemeStore } from "@/stores/theme.js";
-import useGetDynamicImageUrl from "@/composables/getDynamicImageUrl.js";
-
 const { quiz } = defineProps(["quiz"]);
 const themeStore = useThemeStore();
-
-const { path } = useGetDynamicImageUrl(quiz.icon);
 </script>
 
 <template>
   <RouterLink :to="`/quiz/${quiz.id}`">
     <div class="button-container" :class="{ dark: themeStore.isDark }">
-      <img :src="path" alt="html-icon" />
       <div class="quiz-title">{{ quiz.title }}</div>
     </div>
   </RouterLink>
@@ -25,6 +20,7 @@ a {
 .button-container {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: var(--spacing-100);
   padding: var(--spacing-75);
   background-color: var(--color-pure-white);

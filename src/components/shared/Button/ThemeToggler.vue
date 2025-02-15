@@ -8,7 +8,6 @@ const checked = ref(themeStore.theme === 'dark');
 watch(checked, () => {
   themeStore.toggleTheme();
 });
-
 </script>
 
 <template>

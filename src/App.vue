@@ -1,14 +1,14 @@
 <script setup>
-import Navbar from "@/components/Navbar.vue";
+import AppNav from "@/components/shared/AppNav.vue";
 import { useThemeStore } from "@/stores/theme.js";
-import { useUserStore } from "@/stores/auth.js";
+import {useAuthStore} from "@/stores/auth.js";
 import router from "@/router/index.js";
 
 const themeStore = useThemeStore();
-const authStore = useUserStore();
+const authStore = useAuthStore();
 
 router.beforeEach((to) => {
-  if (to.name === "login" && authStore.loggedIn) {
+  if (to.name === "login" && authStore.authenticated) {
     router.push("/");
   }
 
@@ -16,7 +16,7 @@ router.beforeEach((to) => {
     return;
   }
 
-  if (!authStore.loggedIn) {
+  if (!authStore.authenticated) {
     router.push("/");
   }
 });
@@ -25,7 +25,7 @@ router.beforeEach((to) => {
 <template>
   <div class="body-wrapper" :class="{ dark: themeStore.isDark }">
     <div class="container">
-      <Navbar />
+      <AppNav/>
       <RouterView />
     </div>
   </div>
