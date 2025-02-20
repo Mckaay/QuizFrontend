@@ -2,7 +2,7 @@
 @import './base/variables.css';
 
 body {
-    font-family: var(--font-family-base);
+    font-family: var(--font-family-base), serif;
     font-weight: var(--font-weight-regular);
     font-size: var(--font-size-100);
 }

@@ -1,5 +1,4 @@
 import axios from "axios";
-import router from "@/router/index.js";
 import {reactive} from "vue";
 
 
@@ -14,32 +13,15 @@ export default function useAuth() {
 
     const login = async (email, password) => {
         await setXsrfToken();
-
-        try {
-            await axios.post("/login", {
-                email: email,
-                password: password,
-            });
-            localStorage.setItem("authenticated", "true");
-            error.message = '';
-        } catch (e) {
-            if (e.status === 422) {
-                error.message = e.response.data.message;
-            }
-
-            console.log(e)
-        }
+        await axios.post("/login", {
+            email: email,
+            password: password,
+        });
+        localStorage.setItem("authenticated", 'true');
     };
 
     const logout = async () => {
-        try {
-            await axios.post("/logout");
-            await router.push('/login');
-        } catch (e) {
-            console.log(e);
-        } finally {
-            localStorage.removeItem("authenticated");
-        }
+        await axios.post('/logout');
     };
 
     return {error, setXsrfToken, login, logout};
