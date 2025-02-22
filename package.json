@@ -6,17 +6,26 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint 'src/**/*.{js,vue}' --fix",
+    "format": "prettier .  --write"
   },
   "dependencies": {
     "axios": "^1.7.7",
-    "pinia": "^2.2.4",
+    "eslint-plugin-unused-imports": "^4.1.4",
+    "pinia": "^2.3.1",
     "vue": "^3.5.12",
     "vue-router": "^4.4.5"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.1.4",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^9.21.0",
+    "eslint-config-prettier": "^10.0.1",
+    "eslint-plugin-vue": "^9.32.0",
+    "postcss": "^8.5.3",
     "prettier": "3.3.3",
+    "tailwindcss": "^3.4.17",
     "vite": "^5.4.10"
   }
 }

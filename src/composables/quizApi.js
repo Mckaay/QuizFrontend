@@ -1,18 +1,16 @@
 import axios from "axios";
-import {reactive, watch} from "vue";
+import { reactive, watch } from "vue";
 
 const state = reactive({
   quizzes: [],
   searchQuery: "",
-})
+});
 
 watch(
-    () => [
-      state.searchQuery
-    ],
-    async function () {
-      await useQuizApi().searchQuizzes();
-    },
+  () => [state.searchQuery],
+  async function () {
+    await useQuizApi().searchQuizzes();
+  },
 );
 
 export function useQuizApi() {
@@ -61,18 +59,16 @@ export function useQuizApi() {
 
   const saveQuiz = async (quiz) => {
     try {
-     const response = await axios.post(
-          `/api/v1/quiz`, quiz,
-      );
+      const response = await axios.post(`/api/v1/quiz`, quiz);
 
-     console.log(quiz);
+      console.log(quiz);
 
-     console.log(response);
+      console.log(response);
     } catch (e) {
       console.log(e);
       console.log(quiz);
     }
-  }
+  };
 
   return { state, fetchQuizzes, getQuiz, searchQuizzes, saveQuiz };
 }
