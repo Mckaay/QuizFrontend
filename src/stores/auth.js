@@ -23,7 +23,6 @@ export const useAuthStore = defineStore("user", () => {
       if (e.status === 422) {
         error.message = e.response.data.message;
       }
-      console.log(e);
       localStorage.removeItem("authenticated");
     }
   };
