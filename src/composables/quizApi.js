@@ -4,24 +4,32 @@ import { reactive, watch } from "vue";
 const state = reactive({
   quizzes: [],
   searchQuery: "",
+  currentPage: 1,
+  lastPage: 1,
 });
 
 watch(
-  () => [state.searchQuery],
+  () => [state.searchQuery, state.currentPage],
   async function () {
-    await useQuizApi().searchQuizzes();
+    await useQuizApi().fetchQuizzes();
   },
 );
 
 export function useQuizApi() {
   const fetchQuizzes = async () => {
     try {
-      const response = await axios.get("/api/v1/quiz");
+      const response = await axios.get("/api/v1/quiz", {
+        params: {
+          page: state.currentPage,
+          searchQuery: state.searchQuery,
+        },
+      });
       if (!response.data.data) {
         return [];
       }
 
       state.quizzes = response.data.data;
+      state.lastPage = response.data.meta.last_page;
     } catch (e) {
       console.log(e);
     }
@@ -41,22 +49,6 @@ export function useQuizApi() {
     }
   };
 
-  const searchQuizzes = async () => {
-    try {
-      const response = await axios.get(
-        `/api/v1/quiz/search?search=${state.searchQuery}`,
-      );
-
-      if (!response.data.data) {
-        return [];
-      }
-
-      state.quizzes = response.data.data;
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
   const saveQuiz = async (quiz) => {
     try {
       const response = await axios.post(`/api/v1/quiz`, quiz);
@@ -70,5 +62,5 @@ export function useQuizApi() {
     }
   };
 
-  return { state, fetchQuizzes, getQuiz, searchQuizzes, saveQuiz };
+  return { state, fetchQuizzes, getQuiz, saveQuiz };
 }

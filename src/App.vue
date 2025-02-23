@@ -21,7 +21,7 @@ router.beforeEach((to) => {
 
 <template>
   <div class="min-h-screen bg-background">
-    <div class="min-h-screen container mx-auto px-4 py-8">
+    <div class="min-h-screen container mx-auto px-4 py-3">
       <RouterView />
     </div>
   </div>
