@@ -3,13 +3,15 @@ import { reactive, watch } from "vue";
 
 const state = reactive({
   quizzes: [],
-  searchQuery: "",
-  currentPage: 1,
-  lastPage: 1,
+  parameters: {
+    searchQuery: "",
+    currentPage: 1,
+    lastPage: 1,
+  },
 });
 
 watch(
-  () => [state.searchQuery, state.currentPage],
+  () => [state.parameters.searchQuery, state.parameters.currentPage],
   async function () {
     await useQuizApi().fetchQuizzes();
   },
@@ -20,8 +22,8 @@ export function useQuizApi() {
     try {
       const response = await axios.get("/api/v1/quiz", {
         params: {
-          page: state.currentPage,
-          searchQuery: state.searchQuery,
+          page: state.parameters.currentPage,
+          searchQuery: state.parameters.searchQuery,
         },
       });
       if (!response.data.data) {
@@ -29,7 +31,7 @@ export function useQuizApi() {
       }
 
       state.quizzes = response.data.data;
-      state.lastPage = response.data.meta.last_page;
+      state.parameters.lastPage = response.data.meta.last_page;
     } catch (e) {
       console.log(e);
     }
@@ -62,5 +64,16 @@ export function useQuizApi() {
     }
   };
 
-  return { state, fetchQuizzes, getQuiz, saveQuiz };
+  const updateParameter = (key, value) => {
+    if (key !== "currentPage") state.parameters.currentPage = 1;
+
+    if (key === "currentPage") {
+      state.parameters.currentPage = value;
+      return;
+    }
+
+    state.parameters.searchQuery = value;
+  };
+
+  return { state, fetchQuizzes, getQuiz, saveQuiz, updateParameter };
 }

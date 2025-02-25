@@ -4,9 +4,9 @@ import { checkIfObjectHasEmptyProperties } from "@/services/helpers.js";
 import router from "@/router/index.js";
 import { useAuthStore } from "@/stores/auth.js";
 import BaseInput from "@/components/shared/forms/BaseInput.vue";
-import BaseButton from "@/components/shared/buttons/BaseButton.vue";
 import ThemeToggle from "@/components/shared/ThemeToggle.vue";
 import BaseErrorMessage from "@/components/shared/forms/BaseErrorMessage.vue";
+import SubmitButton from "@/components/shared/buttons/SubmitButton.vue";
 
 const authStore = useAuthStore();
 
@@ -85,7 +85,7 @@ const login = async () => {
             />
             <BaseErrorMessage :text="authStore.error.message" />
             <div class="items-center flex flex-col">
-              <BaseButton type="submit"> Login </BaseButton>
+              <SubmitButton class="w-full" type="submit"> Login </SubmitButton>
             </div>
           </div>
         </form>
