@@ -1,7 +1,7 @@
 import { computed, reactive } from "vue";
 import { useQuizApi } from "@/composables/quizApi.js";
 
-const state = reactive({
+const quizState = reactive({
   quiz: {
     title: "",
     description: "",
@@ -19,6 +19,13 @@ const state = reactive({
       },
     ],
   },
+});
+
+const gameState = reactive({
+  error: "",
+  currentlyPlaying: false,
+  startTimestamp: 0,
+  endTimestamp: 0,
   selectedAnswerIndex: -1,
   currentQuestionIndex: 0,
   answeredState: false,
@@ -29,15 +36,15 @@ export function useQuizGame() {
   const quizApi = useQuizApi();
 
   const question = computed(() => {
-    if (!state.quiz.questions) {
+    if (!quizState.quiz.questions) {
       return {};
     }
 
-    return state.quiz.questions[state.currentQuestionIndex];
+    return quizState.quiz.questions[gameState.currentQuestionIndex];
   });
 
   const answers = computed(() => {
-    return state.quiz.questions[state.currentQuestionIndex].answers;
+    return quizState.quiz.questions[gameState.currentQuestionIndex].answers;
   });
 
   const correctAnswerIndex = computed(() => {
@@ -52,40 +59,75 @@ export function useQuizGame() {
   });
 
   const fetchQuizData = async (id) => {
-    state.quiz = await quizApi.getQuiz(id);
+    quizState.quiz = await quizApi.getQuiz(id);
   };
 
   const selectAnswer = (index) => {
+    clearSelectedStateFromAnswers();
+
+    answers.value[index].selected = true;
+    gameState.selectedAnswerIndex = index;
+  };
+
+  const clearSelectedStateFromAnswers = () => {
     answers.value.forEach((answer) => {
       answer.selected = false;
     });
-
-    answers.value[index].selected = true;
-    state.selectedAnswerIndex = index;
   };
 
   const submitAnswer = () => {
-    if (state.selectedAnswerIndex === correctAnswerIndex.value) {
-      answers.value[state.selectedAnswerIndex].selected = false;
-      answers.value[correctAnswerIndex.value].state = "correct";
-      state.score++;
-      state.answeredState = true;
+    if (gameState.selectedAnswerIndex === -1) {
+      gameState.error = "Please select answer";
       return;
     }
 
-    state.answeredState = true;
-    answers.value[state.selectedAnswerIndex].selected = false;
-    answers.value[state.selectedAnswerIndex].state = "wrong";
+    gameState.error = "";
+    gameState.answeredState = true;
+    if (gameState.selectedAnswerIndex === correctAnswerIndex.value) {
+      setStatesOnAnswersWhenCorrectAnswerWasSelected();
+      gameState.score++;
+      return;
+    }
+
+    setStatesOnAnswersWhenWrongAnswerWasSelected();
+  };
+
+  const setStatesOnAnswersWhenWrongAnswerWasSelected = () => {
+    clearSelectedStateFromAnswers();
+    answers.value[gameState.selectedAnswerIndex].state = "wrong";
+    answers.value[correctAnswerIndex.value].state = "correct";
+  };
+
+  const setStatesOnAnswersWhenCorrectAnswerWasSelected = () => {
+    clearSelectedStateFromAnswers();
     answers.value[correctAnswerIndex.value].state = "correct";
   };
 
   const goToNextQuestion = () => {
-    state.answeredState = false;
-    state.currentQuestionIndex++;
+    gameState.selectedAnswerIndex = -1;
+    gameState.answeredState = false;
+    gameState.currentQuestionIndex++;
+  };
+
+  const startGame = () => {
+    gameState.currentlyPlaying = true;
+    gameState.score = 0;
+    gameState.currentQuestionIndex = 0;
+    gameState.selectedAnswerIndex = -1;
+    gameState.answeredState = false;
+    gameState.startTimestamp = Date.now();
+  };
+
+  const endGame = () => {
+    gameState.currentlyPlaying = false;
+    gameState.endTimestamp = Date.now();
   };
 
   return {
-    state,
+    quizState,
+    gameState,
+    startGame,
+    endGame,
     fetchQuizData,
     question,
     answers,

@@ -4,32 +4,38 @@ import { onMounted } from "vue";
 import BaseProgressBar from "@/components/shared/BaseProgressBar.vue";
 import { useQuizGame } from "@/composables/quizGame.js";
 import SubmitButton from "@/components/shared/buttons/SubmitButton.vue";
+import BaseErrorMessage from "@/components/shared/forms/BaseErrorMessage.vue";
+import QuizResult from "@/components/features/quiz/QuizResult.vue";
 
-const router = useRoute();
+const route = useRoute();
 const quizGameService = useQuizGame();
 
 onMounted(async () => {
-  if (!router.params.id) {
+  if (!route.params.id) {
     return;
   }
 
-  await quizGameService.fetchQuizData(router.params.id);
+  await quizGameService.fetchQuizData(route.params.id);
+  quizGameService.startGame();
 });
 </script>
 
 <template>
-  <div class="flex gap-2 mt-14">
+  <div
+    v-if="quizGameService.gameState.currentlyPlaying"
+    class="flex gap-2 mt-14"
+  >
     <header class="flex-1 flex gap-2 flex-col px-4 md:px-8 justify-center">
       <h1 class="text-4xl font-bold">
-        {{ quizGameService.state.quiz.title }}
+        {{ quizGameService.quizState.quiz.title }}
       </h1>
       <p class="text-muted-foreground">
-        {{ quizGameService.state.quiz.description }}
+        {{ quizGameService.quizState.quiz.description }}
       </p>
       <BaseProgressBar
         class="mt-2"
-        :current-step="quizGameService.state.currentQuestionIndex + 1"
-        :last-step="quizGameService.state.quiz.numberOfQuestions"
+        :current-step="quizGameService.gameState.currentQuestionIndex + 1"
+        :last-step="quizGameService.quizState.quiz.numberOfQuestions"
       />
     </header>
     <section class="flex flex-col gap-5 flex-1">
@@ -48,17 +54,17 @@ onMounted(async () => {
               answer.state === 'wrong',
           }"
           class="inline-flex items-center gap-2 whitespace-nowrap rounded-md font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-auto w-full justify-start p-4 text-left text-lg"
-          :disabled="quizGameService.state.answeredState"
+          :disabled="quizGameService.gameState.answeredState"
           @click="quizGameService.selectAnswer(index)"
         >
           <span
             class="mr-4 inline-flex h-8 w-8 items-center justify-center rounded-full border text-sm"
-            >{{ String.fromCharCode(65 + index) }}</span
-          >{{ answer.content }}
+          >{{ String.fromCharCode(65 + index) }}</span>{{ answer.content }}
         </button>
       </div>
+      <BaseErrorMessage :text="quizGameService.gameState.error" />
       <SubmitButton
-        v-if="!quizGameService.state.answeredState"
+        v-if="!quizGameService.gameState.answeredState"
         class="w-full py-7"
         @click="quizGameService.submitAnswer()"
       >
@@ -66,12 +72,12 @@ onMounted(async () => {
       </SubmitButton>
       <SubmitButton
         v-else-if="
-          quizGameService.state.currentQuestionIndex + 1 ===
-            quizGameService.state.quiz.numberOfQuestions &&
-          quizGameService.state.answeredState
+          quizGameService.gameState.currentQuestionIndex + 1 ===
+            quizGameService.quizState.quiz.numberOfQuestions &&
+            quizGameService.gameState.answeredState
         "
         class="w-full py-7"
-        @click="quizGameService.goToNextQuestion()"
+        @click="quizGameService.endGame()"
       >
         See result
       </SubmitButton>
@@ -84,6 +90,7 @@ onMounted(async () => {
       </SubmitButton>
     </section>
   </div>
+  <QuizResult v-else />
 </template>
 
 <style scoped></style>
