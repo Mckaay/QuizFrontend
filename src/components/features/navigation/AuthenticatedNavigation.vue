@@ -43,6 +43,7 @@ const authStore = useAuthStore();
         </BaseButton>
       </RouterLink>
       <BaseButton
+        disabled
         class="row-start-2 md:row-start-1 col-start-3 md:col-start-9 col-end-5 md:col-end-11"
       >
         <IconSettings />
