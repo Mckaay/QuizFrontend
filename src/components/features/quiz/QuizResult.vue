@@ -16,12 +16,16 @@ const router = useRouter();
   <div
     class="relative w-full max-w-2xl rounded-lg border p-8 shadow-lg dark:border-gray-700 mx-auto mt-14"
   >
-    <h1 class="mb-6 text-center text-3xl font-bold">Quiz Results</h1>
+    <h1 class="mb-6 text-center text-3xl font-bold">
+      Quiz Results
+    </h1>
     <div class="mb-8 grid gap-6 md:grid-cols-2">
       <div class="flex items-center gap-4">
         <IconAward />
         <div>
-          <p class="text-sm text-muted-foreground dark:text-gray-400">Score</p>
+          <p class="text-sm text-muted-foreground dark:text-gray-400">
+            Score
+          </p>
           <p class="text-2xl font-bold">
             {{
               `${quizGameService.gameState.score} / ${quizGameService.quizState.quiz.numberOfQuestions}`
@@ -74,7 +78,9 @@ const router = useRouter();
       </div>
     </div>
     <div class="flex flex-col gap-4 sm:flex-row sm:justify-center">
-      <SubmitButton @click="router.go(0)"> Retake Quiz </SubmitButton>
+      <SubmitButton @click="router.go(0)">
+        Retake Quiz
+      </SubmitButton>
     </div>
   </div>
 </template>

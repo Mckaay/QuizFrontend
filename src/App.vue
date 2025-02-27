@@ -15,7 +15,7 @@ router.beforeEach((to) => {
     return;
   }
 
-  if (!authStore.authenticated) {
+  if (!authStore.token) {
     router.push("/");
   }
 });
@@ -24,7 +24,7 @@ router.beforeEach((to) => {
 <template>
   <div class="min-h-screen bg-background">
     <div class="min-h-screen container mx-auto px-4 py-3">
-      <AuthenticatedNavigation v-if="authStore.authenticated" />
+      <AuthenticatedNavigation v-if="authStore.token" />
       <BaseNavigation v-else />
       <main>
         <RouterView />

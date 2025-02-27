@@ -10,6 +10,9 @@ import { useQuiz } from "@/composables/quiz.js";
 import CreateQuizThirdStep from "@/components/features/quiz/CreateQuizThirdStep.vue";
 import { useQuizApi } from "@/composables/quizApi.js";
 import BaseErrorMessage from "@/components/shared/forms/BaseErrorMessage.vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 const currentStep = ref(1);
 const lastStep = 3;
@@ -52,7 +55,13 @@ const goToThePreviousStep = () => {
 };
 
 const saveQuiz = async () => {
-  await quizApi.saveQuiz(quizService.state.value);
+  const success = await quizApi.saveQuiz(quizService.state.value);
+
+  if (!success) {
+    return;
+  }
+
+  await router.push("/");
 };
 </script>
 
@@ -60,11 +69,17 @@ const saveQuiz = async () => {
   <div
     class="max-w-4xl mx-auto mt-8 rounded-lg border bg-card text-card-foreground shadow-sm p-6"
   >
-    <form ref="formRef" @submit.prevent="saveQuiz()">
+    <form
+      ref="formRef"
+      @submit.prevent="saveQuiz()"
+    >
       <CreateQuizFirstStep v-if="currentStep === 1" />
       <CreateQuizSecondStep v-else-if="currentStep === 2" />
       <CreateQuizThirdStep v-else />
-      <BaseErrorMessage class="py-2" :text="quizService.state.value.error" />
+      <BaseErrorMessage
+        class="py-2"
+        :text="quizService.state.value.error"
+      />
       <div class="mt-8 flex justify-between">
         <BaseButton
           class="w-fit"
@@ -83,7 +98,11 @@ const saveQuiz = async () => {
           Next
           <IconChevronRight />
         </BaseButton>
-        <SubmitButton v-else class="w-fit" type="submit">
+        <SubmitButton
+          v-else
+          class="w-fit"
+          type="submit"
+        >
           Create Quiz
         </SubmitButton>
       </div>

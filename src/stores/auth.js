@@ -4,9 +4,7 @@ import useAuth from "@/composables/auth.js";
 import router from "@/router/index.js";
 
 export const useAuthStore = defineStore("user", () => {
-  const authenticated = ref(
-    JSON.parse(localStorage.getItem("authenticated")) ?? false,
-  );
+  const token = ref(localStorage.getItem("token") ?? false);
 
   const error = reactive({
     message: "",
@@ -15,28 +13,29 @@ export const useAuthStore = defineStore("user", () => {
   const authService = useAuth();
   const login = async (email, password) => {
     try {
-      await authService.login(email, password);
-      localStorage.setItem("authenticated", "true");
-      authenticated.value = true;
+      const response = await authService.login(email, password);
+      localStorage.setItem("token", response.data.token);
+      token.value = response.data.token;
       await router.push("/");
     } catch (e) {
       if (e.status === 422) {
         error.message = e.response.data.message;
       }
-      localStorage.removeItem("authenticated");
+      localStorage.removeItem("token");
     }
   };
 
   const logout = async () => {
     try {
       await authService.logout();
-      authenticated.value = false;
+      token.value = false;
     } catch (e) {
       console.log(e);
     } finally {
-      localStorage.removeItem("authenticated");
+      token.value = false;
+      localStorage.removeItem("token");
     }
   };
 
-  return { authenticated, login, logout, error };
+  return { token, login, logout, error };
 });

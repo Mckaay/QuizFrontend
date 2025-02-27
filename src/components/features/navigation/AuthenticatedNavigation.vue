@@ -14,7 +14,10 @@ const authStore = useAuthStore();
     <div
       class="grid grid-cols-4 md:grid-cols-12 grid-rows-2 md:grid-rows-1 gap-2 mx-auto"
     >
-      <RouterLink class="flex items-center" :to="{ name: 'home' }">
+      <RouterLink
+        class="flex items-center"
+        :to="{ name: 'home' }"
+      >
         <h2
           class="text-lg font-semibold col-start-1 col-end-3 md:col-end-7 self-center"
         >

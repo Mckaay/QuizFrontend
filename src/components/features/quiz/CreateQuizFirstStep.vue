@@ -7,7 +7,9 @@ const quizService = useQuiz();
 
 <template>
   <div class="space-y-6">
-    <h2 class="text-2xl font-bold">Quiz Details</h2>
+    <h2 class="text-2xl font-bold">
+      Quiz Details
+    </h2>
     <div class="space-y-4">
       <div>
         <BaseInput

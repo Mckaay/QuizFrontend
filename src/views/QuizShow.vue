@@ -33,7 +33,6 @@ onMounted(async () => {
         {{ quizGameService.quizState.quiz.description }}
       </p>
       <BaseProgressBar
-        class="mt-2"
         :current-step="quizGameService.gameState.currentQuestionIndex + 1"
         :last-step="quizGameService.quizState.quiz.numberOfQuestions"
       />
@@ -59,8 +58,7 @@ onMounted(async () => {
         >
           <span
             class="mr-4 inline-flex h-8 w-8 items-center justify-center rounded-full border text-sm"
-            >{{ String.fromCharCode(65 + index) }}</span
-          >{{ answer.content }}
+          >{{ String.fromCharCode(65 + index) }}</span>{{ answer.content }}
         </button>
       </div>
       <BaseErrorMessage :text="quizGameService.gameState.error" />
@@ -75,7 +73,7 @@ onMounted(async () => {
         v-else-if="
           quizGameService.gameState.currentQuestionIndex + 1 ===
             quizGameService.quizState.quiz.numberOfQuestions &&
-          quizGameService.gameState.answeredState
+            quizGameService.gameState.answeredState
         "
         class="w-full py-7"
         @click="quizGameService.endGame(route.params.id)"

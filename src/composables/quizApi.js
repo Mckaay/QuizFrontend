@@ -53,14 +53,16 @@ export function useQuizApi() {
 
   const saveQuiz = async (quiz) => {
     try {
-      const response = await axios.post(`/api/v1/quiz`, quiz);
-
-      console.log(quiz);
-
-      console.log(response);
+      const token = localStorage.getItem("token");
+      await axios.post("/api/v1/quiz", quiz, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return true;
     } catch (e) {
       console.log(e);
-      console.log(quiz);
+      return false;
     }
   };
 

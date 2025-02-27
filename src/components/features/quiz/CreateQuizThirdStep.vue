@@ -6,25 +6,35 @@ const quizService = useQuiz();
 
 <template>
   <div class="space-y-6">
-    <h2 class="text-2xl font-bold">Review Quiz</h2>
+    <h2 class="text-2xl font-bold">
+      Review Quiz
+    </h2>
     <div class="space-y-6">
       <div class="rounded-lg border p-4">
-        <h3 class="text-lg font-semibold">Quiz Details</h3>
+        <h3 class="text-lg font-semibold">
+          Quiz Details
+        </h3>
         <dl class="mt-4 space-y-2">
           <div class="grid grid-cols-3">
-            <dt class="font-medium text-muted-foreground">Title:</dt>
+            <dt class="font-medium text-muted-foreground">
+              Title:
+            </dt>
             <dd class="col-span-2">
               {{ quizService.state.value.title }}
             </dd>
           </div>
           <div class="grid grid-cols-3">
-            <dt class="font-medium text-muted-foreground">Description:</dt>
+            <dt class="font-medium text-muted-foreground">
+              Description:
+            </dt>
             <dd class="col-span-2">
               {{ quizService.state.value.description }}
             </dd>
           </div>
           <div class="grid grid-cols-3">
-            <dt class="font-medium text-muted-foreground">Duration:</dt>
+            <dt class="font-medium text-muted-foreground">
+              Duration:
+            </dt>
             <dd class="col-span-2">
               {{ quizService.state.value.time }}
             </dd>
@@ -32,7 +42,9 @@ const quizService = useQuiz();
         </dl>
       </div>
       <div class="rounded-lg border p-4">
-        <h3 class="text-lg font-semibold mb-4">Questions</h3>
+        <h3 class="text-lg font-semibold mb-4">
+          Questions
+        </h3>
         <div class="space-y-4 max-h-[400px] overflow-y-auto pr-2">
           <div
             v-for="(question, questionIndex) in quizService.state.value
@@ -59,8 +71,7 @@ const quizService = useQuiz();
                         ? 'text-primary-foreground bg-primary'
                         : 'bg-muted text-muted-foreground'
                     "
-                    >{{ String.fromCharCode(65 + answerIndex) }}</span
-                  ><span>{{ answer.content }}</span>
+                  >{{ String.fromCharCode(65 + answerIndex) }}</span><span>{{ answer.content }}</span>
                 </li>
               </ul>
             </div>

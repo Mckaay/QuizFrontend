@@ -17,8 +17,13 @@ const setCorrectAnswer = (answers, correctAnswerIndex) => {
 <template>
   <div class="space-y-6">
     <div class="flex items-center justify-between">
-      <h2 class="text-2xl font-bold">Questions</h2>
-      <BaseButton class="w-fit" @click="quizService.addQuestion()">
+      <h2 class="text-2xl font-bold">
+        Questions
+      </h2>
+      <BaseButton
+        class="w-fit"
+        @click="quizService.addQuestion()"
+      >
         <IconPlus />
         Add Question
       </BaseButton>
@@ -54,7 +59,7 @@ const setCorrectAnswer = (answers, correctAnswerIndex) => {
               :name="`correct_answer${questionIndex}`"
               :checked="answer.is_correct"
               @click="setCorrectAnswer(question.answers, answerIndex)"
-            />
+            >
             <BaseInput
               v-model="answer.content"
               class="w-full"
