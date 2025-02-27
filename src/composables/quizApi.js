@@ -64,6 +64,14 @@ export function useQuizApi() {
     }
   };
 
+  const incrementQuizPlays = async (id) => {
+    try {
+      await axios.get(`/api/v1/quiz/increment/${id}`);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   const updateParameter = (key, value) => {
     if (key !== "currentPage") state.parameters.currentPage = 1;
 
@@ -75,5 +83,12 @@ export function useQuizApi() {
     state.parameters.searchQuery = value;
   };
 
-  return { state, fetchQuizzes, getQuiz, saveQuiz, updateParameter };
+  return {
+    state,
+    fetchQuizzes,
+    getQuiz,
+    saveQuiz,
+    incrementQuizPlays,
+    updateParameter,
+  };
 }

@@ -15,12 +15,8 @@ onMounted(async () => {
 <template>
   <div class="md:flex md:py-8">
     <header class="flex-1 flex flex-col justify-center">
-      <h1 class="text-4xl font-bold">
-        Welcome to the Quiz Game!
-      </h1>
-      <p class="text-muted-foreground mt-2">
-        Pick a subject to get started
-      </p>
+      <h1 class="text-4xl font-bold">Welcome to the Quiz Game!</h1>
+      <p class="text-muted-foreground mt-2">Pick a subject to get started</p>
     </header>
     <section class="flex flex-col gap-3 flex-1">
       <BaseInput

@@ -60,9 +60,7 @@ const login = async () => {
     >
       <div class="flex flex-col space-y-1.5 p-6">
         <div class="flex justify-between items-center">
-          <h3 class="text-2xl font-semibold">
-            Login
-          </h3>
+          <h3 class="text-2xl font-semibold">Login</h3>
           <ThemeToggle />
         </div>
         <p class="text-sm text-muted-foreground">
@@ -87,12 +85,7 @@ const login = async () => {
             />
             <BaseErrorMessage :text="authStore.error.message" />
             <div class="items-center flex flex-col">
-              <SubmitButton
-                class="w-full"
-                type="submit"
-              >
-                Login
-              </SubmitButton>
+              <SubmitButton class="w-full" type="submit"> Login </SubmitButton>
             </div>
           </div>
         </form>

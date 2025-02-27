@@ -118,7 +118,12 @@ export function useQuizGame() {
     gameState.startTimestamp = Date.now();
   };
 
-  const endGame = () => {
+  const endGame = async (id) => {
+    if (!id) {
+      return;
+    }
+
+    await quizApi.incrementQuizPlays(id);
     gameState.currentlyPlaying = false;
     gameState.endTimestamp = Date.now();
   };

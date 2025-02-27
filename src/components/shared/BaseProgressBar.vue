@@ -18,9 +18,7 @@ const width = computed(() => {
 </script>
 
 <template>
-  <p class="text-md font-medium ml-auto">
-    {{ currentStep }} / {{ lastStep }}
-  </p>
+  <p class="text-md font-medium ml-auto">{{ currentStep }} / {{ lastStep }}</p>
   <div class="relative h-4 overflow-hidden rounded-full bg-primary/20 w-full">
     <div
       class="h-full w-full flex-1 bg-primary transition-all"

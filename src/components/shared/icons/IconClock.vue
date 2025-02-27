@@ -11,11 +11,7 @@
     stroke-linejoin="round"
     class="lucide lucide-clock h-8 w-8 text-blue-500"
   >
-    <circle
-      cx="12"
-      cy="12"
-      r="10"
-    />
+    <circle cx="12" cy="12" r="10" />
     <polyline points="12 6 12 12 16 14" />
   </svg>
 </template>

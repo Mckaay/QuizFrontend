@@ -11,23 +11,8 @@
     stroke-linejoin="round"
     class="lucide lucide-bar-chart h-8 w-8 text-green-500"
   >
-    <line
-      x1="12"
-      x2="12"
-      y1="20"
-      y2="10"
-    />
-    <line
-      x1="18"
-      x2="18"
-      y1="20"
-      y2="4"
-    />
-    <line
-      x1="6"
-      x2="6"
-      y1="20"
-      y2="16"
-    />
+    <line x1="12" x2="12" y1="20" y2="10" />
+    <line x1="18" x2="18" y1="20" y2="4" />
+    <line x1="6" x2="6" y1="20" y2="16" />
   </svg>
 </template>
