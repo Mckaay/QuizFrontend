@@ -1,29 +1,83 @@
-# frontend-quiz-app
+## 🔗 Live Demo
 
-This template should help get you started developing with Vue 3 in Vite.
+[Visit the Quiz Game](https://quiz-frontend-theta-peach.vercel.app/)
 
-## Recommended IDE Setup
+# Quiz Game
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+A modern, interactive quiz application that allows users to test their knowledge across various subjects through questions. The platform features a clean, responsive interface for users and comprehensive management tools for administrators.
 
-## Customize configuration
+### 📸 Screenshots
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+#### Home Page
+![Home Page](./images/HomePage.png)
+![DarkModeHomePage](./images/DarkModeHomePage.png)
+![LoginPage](./images/LoginPage.png)
+![Game](./images/Game.png)
+![Result](./images/Result.png)
+![AddingQuiz](./images/AddingQuiz.png)
+![ReviewQuiz](./images/ReviewQuiz.png)
 
-## Project Setup
+## ✨ Features
 
-```sh
-npm install
-```
+### User Features
+- **Browse Quizzes**: Explore a variety of quiz categories
+- **Take Quizzes**: Answer multiple-choice questions with a user-friendly interface
+- **Track Progress**: View detailed results including score, time taken, and accuracy
+- **Responsive Design**: Enjoy a seamless experience on any device
+- **Dark/Light Mode**: Choose your preferred theme for comfortable viewing
 
-### Compile and Hot-Reload for Development
+### Admin Features
+- **Quiz Management**: Create, edit, and delete quizzes
+- **Secure Authentication**: Protected admin dashboard
+-
+## 🛠️ Technologies Used
 
-```sh
-npm run dev
-```
+### Frontend
+- **Vue.js**: Progressive JavaScript framework for building user interfaces
+- **Tailwind CSS**: Utility-first CSS framework for rapid UI development
+- **Shadcn UI**: High-quality UI components built with Tailwind CSS
+- **Lucide Icons**: Beautiful, consistent icon set
 
-### Compile and Minify for Production
+### Backend
+- **Laravel**: PHP framework for web application development
+- **MySQL**: Relational database management system
+- **Laravel Sanctum**: Authentication system for SPAs and simple APIs
 
-```sh
-npm run build
-```
+
+### DevOps
+- **Docker**: Containerization for consistent development and deployment
+- **GitHub Actions**: CI/CD pipeline for automated testing and deployment
+- **Vercel/Laravel Cloud**: Frontend hosting and deployment
+
+
+## 📋 Prerequisites
+
+- PHP 8.1 or higher
+- Node.js 16.x or higher
+- MySQL 8.0 or higher
+- Composer
+- npm or yarn
+- docker
+
+## 🚀 Installation
+
+# Backend
+- git clone https://github.com/Mckaay/QuizBackend.git
+- cd QuizBackend
+- cp .env.example .env
+- add APP_SERVICE=php variable to .env
+- composer install
+- ./vendor/bin/sail up -d
+- ./vendor/bin/sail php artisan migrate:fresh --seed
+- ./vendor/bin/sail php artisan key:generate
+
+# Frontend
+- git clone https://github.com/Mckaay/QuizFrontend.git
+- cd QuizFrontend
+- create .env file and put there VITE_API_URL=http://localhost:80
+- npm install
+- npm run dev
+
+## Default Admin Credentials (For demo purposes)
+Email: admin@admin.com
+Password: password
